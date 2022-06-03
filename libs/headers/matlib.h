@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "..\sources\matlib.c"
 
-int *vetorizaMatrizQuadrada(int**matriz, int dimensaoMatriz);
-int calculaMedianaDoVetor(int*vetor, int tamanhoVetor);
-int calculaMedianaMatrizQuadrada(int**matriz, int dimensaoMatriz);
-void copiaMatriz(int**matrizCopiada, int**matrizCopia, int linhasMatriz, int colunasMatriz);
+unsigned char *vetorizaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz);
+unsigned char calculaMedianaDoVetor(unsigned char*vetor, int tamanhoVetor);
+unsigned char calculaMedianaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz);
+void copiaMatriz(unsigned char**matrizCopiada, unsigned char**matrizCopia, int linhasMatriz, int colunasMatriz);
 
 // Essa funcao ira substituir elemento a elemento da matriz pela mediana dos valores vizinhos em um dado tamanho de filtro
-void matrizMediana(int**matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro);
+void matrizMediana(unsigned char**matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro);

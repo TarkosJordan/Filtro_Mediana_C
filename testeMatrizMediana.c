@@ -13,10 +13,10 @@ int main(int argc, char**argv){
     int tamanhoFiltro = atoi(argv[3]);
 
     int i, j;
-    int medianaDaMatriz;
-    int **matriz = (int**)malloc(linhasMatriz * sizeof(int*));
+    unsigned char medianaDaMatriz;
+    unsigned char **matriz = (unsigned char**)malloc(linhasMatriz * sizeof(unsigned char*));
     for(i=0; i<linhasMatriz; i++){
-        matriz[i] = (int*)malloc(colunasMatriz * sizeof(int));
+        matriz[i] = (unsigned char*)malloc(colunasMatriz * sizeof(unsigned char));
     }
     printf("Insira os elementos da matriz de dimensao %dx%d\n", linhasMatriz, colunasMatriz);
 

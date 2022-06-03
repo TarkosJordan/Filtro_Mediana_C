@@ -1,9 +1,9 @@
 #include<stdio.h>
 
-int* vetorizaMatrizQuadrada(int**matriz, int dimensaoMatriz){
+unsigned char* vetorizaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz){
     int i, j, indiceVetor = 0;
     int tamanhoVetor = dimensaoMatriz*dimensaoMatriz;   
-    int*vetorResultante = (int*)malloc(tamanhoVetor*sizeof(int));
+    unsigned char*vetorResultante = (unsigned char*)malloc(tamanhoVetor*sizeof(unsigned char));
     
     for(i = 0; i<dimensaoMatriz; i++){
         for(j = 0; j < dimensaoMatriz; j++){
@@ -14,11 +14,11 @@ int* vetorizaMatrizQuadrada(int**matriz, int dimensaoMatriz){
     return vetorResultante;
 }
 
-int calculaMedianaDoVetor(int*vetor, int tamanhoVetor){
+unsigned char calculaMedianaDoVetor(unsigned char*vetor, int tamanhoVetor){
     int paridadeVetor = tamanhoVetor % 2;
     int elementoCentralVetor;
     int i,j; 
-    int mediana;
+    unsigned char mediana;
 
     for(i=0; i<tamanhoVetor; i++){
         for(j=0; j<tamanhoVetor -1; j++){
@@ -37,16 +37,17 @@ int calculaMedianaDoVetor(int*vetor, int tamanhoVetor){
     }
     return mediana;
 }
-int calculaMedianaMatrizQuadrada(int**matriz, int dimensaoMatriz){
-    int *vetor = vetorizaMatrizQuadrada(matriz, dimensaoMatriz);
-    int mediana = calculaMedianaDoVetor(vetor, dimensaoMatriz*dimensaoMatriz);
+
+unsigned char calculaMedianaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz){
+    unsigned char *vetor = vetorizaMatrizQuadrada(matriz, dimensaoMatriz);
+    unsigned char mediana = calculaMedianaDoVetor(vetor, dimensaoMatriz*dimensaoMatriz);
 
     return mediana;
 }
-// Copia elemento a elemento de uma matriz quadrada para outra
-void copiaMatriz(int**matrizCopiada, int**matrizCopia, int linhasMatriz, int colunasMatriz){    
-    int i, j;
 
+// Copia elemento a elemento de uma matriz quadrada para outra
+void copiaMatriz(unsigned char**matrizCopiada, unsigned char**matrizCopia, int linhasMatriz, int colunasMatriz){    
+    int i, j;
     for(i=0; i<linhasMatriz; i++){
         for(j=0; j<colunasMatriz; j++){
             matrizCopia[i][j] = matrizCopiada[i][j];
@@ -54,15 +55,15 @@ void copiaMatriz(int**matrizCopiada, int**matrizCopia, int linhasMatriz, int col
     }
 }
 
-void matrizMediana(int**matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro){
+void matrizMediana(unsigned char**matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro){
     int sizeConjuntoElementos;
     int i, j, k, metadeMatrizFiltro;
     int posExtracaoLinha, posExtracaoLinhaInicial, posExtracaoLinhaFinal; 
     int posExtracaoColuna, posExtracaoColunaInicial, posExtracaoColunaFinal;
-    int*conjutoElementosExtraidos;
-    int**matrizInalterada = (int**)malloc(linhasMatriz*sizeof(int*));
+    unsigned char*conjutoElementosExtraidos;
+    unsigned char**matrizInalterada = (unsigned char**)malloc(linhasMatriz*sizeof(unsigned char*));
     for(i = 0; i<linhasMatriz; i++){
-        matrizInalterada[i] = (int*)malloc(colunasMatriz*sizeof(int));
+        matrizInalterada[i] = (unsigned char*)malloc(colunasMatriz*sizeof(unsigned char));
     }
 
     copiaMatriz(matriz, matrizInalterada, linhasMatriz, colunasMatriz);
@@ -70,7 +71,7 @@ void matrizMediana(int**matriz, int linhasMatriz, int colunasMatriz, int tamanho
     metadeMatrizFiltro = tamanhoMatrizFiltro/2;
 
     sizeConjuntoElementos = tamanhoMatrizFiltro*tamanhoMatrizFiltro;  // matriz quadrada de filtro lado*lado
-    conjutoElementosExtraidos = (int*)malloc(sizeConjuntoElementos*sizeof(int));
+    conjutoElementosExtraidos = (unsigned char*)malloc(sizeConjuntoElementos*sizeof(unsigned char));
 
     for(i=0; i<linhasMatriz; i++){
         for(j=0; j<colunasMatriz; j++){

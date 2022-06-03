@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void printMatriz(int**matriz, int linhas, int colunas){
+void printMatriz(unsigned char**matriz, int linhas, int colunas){
     int i, j;
 
     for(i=0; i<linhas; i++){
@@ -11,7 +11,7 @@ void printMatriz(int**matriz, int linhas, int colunas){
     }
 }
 
-void printMatrizQuadrada(int**matriz, int dimensaoMatriz){
+void printMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz){
     int i, j;
 
     for(i=0; i<dimensaoMatriz; i++){
@@ -22,7 +22,7 @@ void printMatrizQuadrada(int**matriz, int dimensaoMatriz){
     }
 }
 
-void printVetor(int*vetor, int tamanhoVetor){
+void printVetor(unsigned char*vetor, int tamanhoVetor){
     int i;
     for(i=0; i<tamanhoVetor; i++){
         printf("%d ",vetor[i]);
