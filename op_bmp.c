@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include ".\libs\matlib.h"
-#include ".\libs\my_logs.h"
 
 //Para structs por default os compiladores alocam memoria de 4 em 4 bytes esse comando altera esse step de alocacao de memoria pelo valor passado para tornar os tamanhos das structs mais flexiveis
 #pragma pack(1)
