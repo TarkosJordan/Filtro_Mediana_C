@@ -5,7 +5,7 @@
         "type": "cppdbg",
         "request": "launch",
         "program": "${workspaceFolder}/a.exe",
-        "args": [],
+        "args": ["imagens\\borboleta.bmp", "imagens\\testeMedianaRGB2.bmp", "5"],
         "stopAtEntry": false,
         "cwd": "${fileDirname}",
         "environment": [],

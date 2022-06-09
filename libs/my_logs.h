@@ -1,4 +1,4 @@
-#include "..\sources\my_logs.c"
+#include ".\my_logs.c"
 
 void printMatriz(unsigned char**matriz, int linhas, int colunas);
 void printMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz);

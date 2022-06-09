@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "..\sources\matlib.c"
+#include ".\matlib.c"
 
 unsigned char *vetorizaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz);
 unsigned char calculaMedianaDoVetor(unsigned char*vetor, int tamanhoVetor);
