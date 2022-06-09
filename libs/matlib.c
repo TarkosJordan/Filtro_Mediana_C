@@ -1,19 +1,5 @@
 #include<stdio.h>
 
-unsigned char* vetorizaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz){
-    int i, j, indiceVetor = 0;
-    int tamanhoVetor = dimensaoMatriz*dimensaoMatriz;   
-    unsigned char*vetorResultante = (unsigned char*)malloc(tamanhoVetor*sizeof(unsigned char));
-    
-    for(i = 0; i<dimensaoMatriz; i++){
-        for(j = 0; j < dimensaoMatriz; j++){
-            vetorResultante[indiceVetor] = matriz[i][j];
-            indiceVetor++;
-        }
-    }
-    return vetorResultante;
-}
-
 unsigned char calculaMedianaDoVetor(unsigned char*vetor, int tamanhoVetor){
     int paridadeVetor = tamanhoVetor % 2;
     int elementoCentralVetor;
@@ -35,13 +21,6 @@ unsigned char calculaMedianaDoVetor(unsigned char*vetor, int tamanhoVetor){
         elementoCentralVetor = tamanhoVetor/2;
         mediana = vetor[elementoCentralVetor];
     }
-    return mediana;
-}
-
-unsigned char calculaMedianaMatrizQuadrada(unsigned char**matriz, int dimensaoMatriz){
-    unsigned char *vetor = vetorizaMatrizQuadrada(matriz, dimensaoMatriz);
-    unsigned char mediana = calculaMedianaDoVetor(vetor, dimensaoMatriz*dimensaoMatriz);
-
     return mediana;
 }
 
