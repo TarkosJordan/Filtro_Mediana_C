@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include ".\libs\matlib.h"
 
+#define img(numeroLinha,numeroColuna) img[numeroLinha*larguraImagem +numeroColuna]
+
 int main(int argc, char** argv){
 
     if(argc != 4){
@@ -23,22 +25,21 @@ int main(int argc, char** argv){
 
     CABECALHO cabecalhoImg;
     fread(&cabecalhoImg, sizeof(cabecalhoImg), 1, arquivoEntrada);
+    unsigned int larguraImagem = cabecalhoImg.largura;
+    unsigned int alturaImagem = cabecalhoImg.altura;
                   
-    int i, j;
+    unsigned int i, j;
 
-    PIXEL **img = (PIXEL**)malloc(cabecalhoImg.altura * sizeof(PIXEL*));
-    for(i=0; i<cabecalhoImg.largura; i++){
-        img[i] = (PIXEL*)malloc(cabecalhoImg.largura * sizeof(PIXEL));
-    }
+    PIXEL *img = (PIXEL*)malloc(alturaImagem *larguraImagem * sizeof(PIXEL));
 
     // Realizando a leitura dos pixels do arquivo de entrada
-    for(i=0; i<cabecalhoImg.altura; i++){
-        for(j=0; j<cabecalhoImg.largura; j++){
-            fread(&img[i][j], sizeof(PIXEL), 1, arquivoEntrada);
+    for(i=0; i<alturaImagem; i++){
+        for(j=0; j<larguraImagem; j++){
+            fread(&img(i,j), sizeof(PIXEL), 1, arquivoEntrada);
         }
     }
 
-    matrizMediana(img, cabecalhoImg.altura, cabecalhoImg.largura, tamanhoMatrizFiltro);
+    matrizMediana(img, alturaImagem, larguraImagem, tamanhoMatrizFiltro);
 
     // Criacao imagem de saida
 
@@ -49,9 +50,9 @@ int main(int argc, char** argv){
     }
 
     fwrite(&cabecalhoImg, sizeof(CABECALHO), 1, arquivoSaida);
-    for(i=0; i<cabecalhoImg.altura; i++){
-        for(j=0; j<cabecalhoImg.largura; j++){
-            fwrite(&img[i][j], sizeof(PIXEL), 1, arquivoSaida);
+    for(i=0; i<alturaImagem; i++){
+        for(j=0; j<larguraImagem; j++){
+            fwrite(&img(i,j), sizeof(PIXEL), 1, arquivoSaida);
         }
     }
     
@@ -61,16 +62,16 @@ int main(int argc, char** argv){
 
     char aux;
 
-    for(i=0; i<cabecalhoImg.altura; i++){
+    for(i=0; i<alturaImagem; i++){
 
-		int ali = (cabecalhoImg.largura * 3) % 4;
+		int ali = (larguraImagem * 3) % 4;
 
 		if (ali != 0){
 			ali = 4 - ali;
 		}
 
-		for(j=0; j<cabecalhoImg.largura; j++){
-			fread(&img[i][j], sizeof(PIXEL), 1, arquivoEntrada);
+		for(j=0; j<larguraImagem; j++){
+			fread(&img(i,j), sizeof(PIXEL), 1, arquivoEntrada);
         }
         
         for(j=0; j<ali; j++){
@@ -78,16 +79,16 @@ int main(int argc, char** argv){
     	}
     }
 
-    for(i=0; i<cabecalhoImg.altura; i++){
+    for(i=0; i<alturaImagem; i++){
 
-		int ali = (cabecalhoImg.largura * 3) % 4;
+		int ali = (larguraImagem * 3) % 4;
 
 		if (ali != 0){
 			ali = 4 - ali;
 		}
 
-		for(j=0; j<cabecalhoImg.largura; j++){
-	        fwrite(&img[i][j], sizeof(PIXEL), 1, arquivoSaida);
+		for(j=0; j<larguraImagem; j++){
+	        fwrite(&img(i,j), sizeof(PIXEL), 1, arquivoSaida);
         }
         
         for(j=0; j<ali; j++){

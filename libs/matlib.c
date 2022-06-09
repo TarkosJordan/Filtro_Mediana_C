@@ -1,6 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#define matriz(numeroLinha,numeroColuna)            matriz[numeroLinha*colunasMatriz +numeroColuna]
+#define matrizInalterada(numeroLinha,numeroColuna)  matrizInalterada[numeroLinha*colunasMatriz +numeroColuna]
+
 PIXEL calculaMedianaDoVetorDePixels(PIXEL*vetorPixels, int tamanhoVetor){
     int paridadeVetor = tamanhoVetor % 2;
     int elementoCentralVetor;
@@ -46,25 +49,22 @@ PIXEL calculaMedianaDoVetorDePixels(PIXEL*vetorPixels, int tamanhoVetor){
     return pixelMediana;
 }
 
-void copiaMatrizPixels(PIXEL**matrizCopiada, PIXEL**matrizCopia, int linhasMatriz, int colunasMatriz){    
+void copiaMatrizPixels(PIXEL*matriz, PIXEL*matrizInalterada, int linhasMatriz, int colunasMatriz){    
     int i, j;
     for(i=0; i<linhasMatriz; i++){
         for(j=0; j<colunasMatriz; j++){
-            matrizCopia[i][j] = matrizCopiada[i][j];
+            matrizInalterada(i,j) = matriz(i,j);
         }
     }
 }
 
-void matrizMediana(PIXEL**matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro){
+void matrizMediana(PIXEL*matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro){
     int sizeConjuntoElementos;
     int i, j, k, metadeMatrizFiltro;
     int posExtracaoLinha, posExtracaoLinhaInicial, posExtracaoLinhaFinal; 
     int posExtracaoColuna, posExtracaoColunaInicial, posExtracaoColunaFinal;
     PIXEL*conjutoElementosExtraidos;
-    PIXEL**matrizInalterada = (PIXEL**)malloc(linhasMatriz*sizeof(PIXEL*));
-    for(i = 0; i<linhasMatriz; i++){
-        matrizInalterada[i] = (PIXEL*)malloc(colunasMatriz*sizeof(PIXEL));
-    }
+    PIXEL*matrizInalterada = (PIXEL*)malloc(linhasMatriz*colunasMatriz*sizeof(PIXEL*));
 
     copiaMatrizPixels(matriz, matrizInalterada, linhasMatriz, colunasMatriz);
 
@@ -128,11 +128,11 @@ void matrizMediana(PIXEL**matriz, int linhasMatriz, int colunasMatriz, int taman
             k = 0;
             for(posExtracaoLinha = posExtracaoLinhaInicial; posExtracaoLinha <= posExtracaoLinhaFinal; posExtracaoLinha++){
                 for(posExtracaoColuna = posExtracaoColunaInicial; posExtracaoColuna <= posExtracaoColunaFinal; posExtracaoColuna++){
-                    conjutoElementosExtraidos[k] = matrizInalterada[posExtracaoLinha][posExtracaoColuna];
+                    conjutoElementosExtraidos[k] = matrizInalterada(posExtracaoLinha,posExtracaoColuna);
                     k++;
                 }
             }
-            matriz[i][j] = calculaMedianaDoVetorDePixels(conjutoElementosExtraidos, k);
+            matriz(i,j) = calculaMedianaDoVetorDePixels(conjutoElementosExtraidos, k);
         }
     }
     free(conjutoElementosExtraidos);
