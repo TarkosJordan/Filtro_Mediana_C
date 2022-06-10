@@ -40,8 +40,6 @@ int main(int argc, char** argv){
                   
     unsigned int i, j;
 
-    //PIXEL *img = (PIXEL*)malloc(alturaImagem *larguraImagem * sizeof(PIXEL));
-
     int chave = 5;
 
 	int shmid = shmget(chave, larguraImagem*alturaImagem*sizeof(PIXEL), IPC_CREAT | 0600);	
@@ -55,23 +53,25 @@ int main(int argc, char** argv){
         }
     }
 
-	/*int li, i, id;
+	int processId_linhaInicial, processIterator, id;
 
-	li = 0;
-	for (i = 1; i < np; i++) {
+	processId_linhaInicial = 0;
+	for (processIterator = 1; processIterator < numeroProcessos; processIterator++) {
 		id = fork();
 		if (id == 0) {
-			li = i;
+			processId_linhaInicial = processIterator;
 			break;
 		}
-	}*/
-
-
+	}
 
     matrizMediana(img, alturaImagem, larguraImagem, tamanhoMatrizFiltro);
 
     // Criacao imagem de saida
 
+    if(id == 0) //  Processo pai
+    {
+        
+    }
     FILE *arquivoSaida = fopen(argv[2], "wb");
     if(arquivoSaida == NULL){
         printf("Erro ao abrir o arquivo %s\n", argv[2]);
@@ -126,7 +126,7 @@ int main(int argc, char** argv){
     }
     
     // Desalocando memoria dos mallocs
-    free(img);
+    //free(img);
 
     //Fechamento dos arquivos    
     fclose(arquivoEntrada);
