@@ -58,7 +58,7 @@ void copiaMatrizPixels(PIXEL*matriz, PIXEL*matrizInalterada, int linhasMatriz, i
     }
 }
 
-void matrizMediana(PIXEL*matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro){
+void matrizMediana(PIXEL*matriz, int linhasMatriz, int colunasMatriz, int tamanhoMatrizFiltro, int linhaInicial, int step){
     int sizeConjuntoElementos;
     int i, j, k, metadeMatrizFiltro;
     int posExtracaoLinha, posExtracaoLinhaInicial, posExtracaoLinhaFinal; 
@@ -73,7 +73,7 @@ void matrizMediana(PIXEL*matriz, int linhasMatriz, int colunasMatriz, int tamanh
     sizeConjuntoElementos = tamanhoMatrizFiltro*tamanhoMatrizFiltro;  // matriz quadrada de filtro lado*lado
     conjutoElementosExtraidos = (PIXEL*)malloc(sizeConjuntoElementos*sizeof(PIXEL));
 
-    for(i=0; i<linhasMatriz; i+= 1){
+    for(i=linhaInicial; i<linhasMatriz; i+= step){
         for(j=0; j<colunasMatriz; j++){
             if((i - metadeMatrizFiltro >= 0 && j - metadeMatrizFiltro >= 0) && (i + metadeMatrizFiltro < linhasMatriz && j + metadeMatrizFiltro < colunasMatriz)){ // Significa que a matriz de filtro cabe inteiramente na matriz principal
                // O range da vizinhanca vai de [-metadeMatrizFiltro, metadeMatrizFiltro+1] utilizando a posicao i,j como referencia (elemento central da matriz)

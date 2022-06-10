@@ -64,7 +64,7 @@ int main(int argc, char** argv){
 		}
 	}
 
-    matrizMediana(img, alturaImagem, larguraImagem, tamanhoMatrizFiltro);
+    matrizMediana(img, alturaImagem, larguraImagem, tamanhoMatrizFiltro, processId_linhaInicial, numeroProcessos);
 
     // Criacao imagem de saida
 
