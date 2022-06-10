@@ -1,19 +1,28 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+#include <sys/shm.h>
 #include "./libs/matlib.h"
+
 
 #define img(numeroLinha,numeroColuna) img[numeroLinha*larguraImagem +numeroColuna]
 
 int main(int argc, char** argv){
 
-    if(argc != 4){
-        printf("Numero de parametros errado\n%s <img_entrada.bmp> <arquivo_saida.bmp> <tamanho_filtro>\n", argv[0]);
+    if(argc != 5){
+        printf("Numero de parametros errado\n%s <img_entrada.bmp> <arquivo_saida.bmp> <tamanho_filtro> <numero_processos>\n", argv[0]);
+        exit(0);
+    }
+
+    int numeroProcessos = atoi(argv[4]);
+    if(numeroProcessos < 1){
+        printf("Numero de processos escolhido deve ser pelo menos 1, quantidade de processos escolhida %d eh invalida\n", numeroProcessos);
         exit(0);
     }
 
     int tamanhoMatrizFiltro = atoi(argv[3]);
     if(tamanhoMatrizFiltro%2 == 0){
-        printf("Tamanho de matriz par nao eh possivel aplicar filtro %d\n", tamanhoMatrizFiltro);
+        printf("Tamanho da matriz de filtro, par nao eh possivel aplicar filtro, tamanho: %d invalido\n", tamanhoMatrizFiltro);
         exit(0);
     }
 
@@ -25,12 +34,19 @@ int main(int argc, char** argv){
 
     CABECALHO cabecalhoImg;
     fread(&cabecalhoImg, sizeof(cabecalhoImg), 1, arquivoEntrada);
+
     unsigned int larguraImagem = cabecalhoImg.largura;
     unsigned int alturaImagem = cabecalhoImg.altura;
                   
     unsigned int i, j;
 
-    PIXEL *img = (PIXEL*)malloc(alturaImagem *larguraImagem * sizeof(PIXEL));
+    //PIXEL *img = (PIXEL*)malloc(alturaImagem *larguraImagem * sizeof(PIXEL));
+
+    int chave = 5;
+
+	int shmid = shmget(chave, larguraImagem*alturaImagem*sizeof(PIXEL), IPC_CREAT | 0600);	
+
+	PIXEL *img = shmat(shmid, 0, 0);
 
     // Realizando a leitura dos pixels do arquivo de entrada
     for(i=0; i<alturaImagem; i++){
@@ -38,6 +54,19 @@ int main(int argc, char** argv){
             fread(&img(i,j), sizeof(PIXEL), 1, arquivoEntrada);
         }
     }
+
+	/*int li, i, id;
+
+	li = 0;
+	for (i = 1; i < np; i++) {
+		id = fork();
+		if (id == 0) {
+			li = i;
+			break;
+		}
+	}*/
+
+
 
     matrizMediana(img, alturaImagem, larguraImagem, tamanhoMatrizFiltro);
 
